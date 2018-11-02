@@ -72,6 +72,46 @@
 
   // TODO: your code goes here :)
 
+function resetbtn () {
+    document.getElementById('generateDoggoBtn').innerHTML = "Generate Doggo"
+}
+
+function dogCeo () {
+    axios.get('https://dog.ceo/api/breeds/image/random')
+    .then (function (response){
+        // handle success
+        var img = document.createElement('IMG')
+        document.body.appendChild(img)
+        document.getElementsByTagName('img')[0].setAttribute('src', response.data.message)
+        resetbtn()
+        // console.log(response)
+    })
+    .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+}
+
+function generateDoggo() {
+    document.getElementById('generateDoggoBtn').innerHTML = "Generating Doggo..."
+    dogCeo()
+}
+
+function init () {
+    jQuery.ajax({
+      url: 'https://unpkg.com/axios/dist/axios.min.js',
+      dataType: 'script',
+      success: 'callback',
+      async: true
+    });
+    document.getElementById('generateDoggoBtn').addEventListener('click', generateDoggo)
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
   //
   // Cool. Now let's kick it up a notch and allow selecting a specific breed of dog!
   //
@@ -107,7 +147,30 @@
   //
 
   // TODO: your code goes here :)
+  $($.ajax({
+    method: "GET",
+    url: "https://dog.ceo/api/breeds/list ",
+    dataType: ""
+  })
+  .then(function (response){
+    console.log(response)
+    var myArray = response.message
+    $(myArray).each(function(){
+      $(document.getElementsByTagName('SELECT')[0]).append(`<option>${this}</option>`)
+    })
+  }))
 
+  $("#selectBreedContainer").append("<select></select>")
+
+  $("#selectBreedContainer").on("click", "select", function() {
+    var breed = document.getElementsByTagName("select")[0].value
+    console.log("test")
+    $.get("https://dog.ceo/api/breed/" + breed + "/images/random").then(function(response){
+      var img = document.createElement('IMG')
+      document.body.appendChild(img)
+      document.getElementsByTagName('img')[0].setAttribute('src', response.message)
+    })
+  })
   //
   // Excellent work!
   //
