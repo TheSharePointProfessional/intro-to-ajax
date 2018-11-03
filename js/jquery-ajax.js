@@ -159,15 +159,19 @@ document.addEventListener('DOMContentLoaded', init)
     })
   }))
 
-  $("#selectBreedContainer").append("<select></select>")
+  $("#selectBreedContainer").append("<select id=breedSelect></select>")
+                            .append('<img id=dogImg />')
 
-  $("#selectBreedContainer").on("click", "option", function() {
+  $("#breedSelect").on("change", function() {
     var breed = document.getElementsByTagName("select")[0].value
     $.get("https://dog.ceo/api/breed/" + breed + "/images/random")
     .then(function(response){
-      var img = document.createElement('IMG')
-      document.body.appendChild(img)
-      document.getElementsByTagName('img')[0].setAttribute('src', response.message)
+      console.log(response.message)
+      $('#dogImg').attr('src', response.message)
+      // var img = document.createElement('IMG')
+      // document.body.appendChild(img)
+      // document.getElementsByTagName('img')[0].setAttribute('src', response.message)
+      //$('#selectBreedContainer img').first().attr('src', response.message)
     })
   })
   //

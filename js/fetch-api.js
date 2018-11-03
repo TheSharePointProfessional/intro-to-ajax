@@ -104,10 +104,13 @@
         return response.json()
       })
       .then(function(json){
-        console.log(json)
-        var img = document.createElement('IMG')
-        document.body.appendChild(img)
-        document.getElementsByTagName('img')[0].setAttribute('src', json[0].url)
+        $("#catContainer").append("<img id=catImg />")
+        // console.log(json)
+        // var img = document.createElement('IMG')
+        // document.body.appendChild(img)
+        // document.getElementById('catContainer').setAttribute('style', 'display:flex;justify-content:center;align-itmes:center')
+        // document.getElementsByTagName('img')[0].setAttribute('style', 'display:block')
+        document.getElementById('catImg').setAttribute('src', json[0].url)
       })
     })
   //
