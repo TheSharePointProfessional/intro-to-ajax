@@ -92,7 +92,24 @@
   //
 
   // TODO: your code goes here :)
-
+ var myHeaders = new Headers({
+        'Content-Type': 'application/json',
+        'x-api-key': '5442a665-8e8d-4255-83f1-dbf4c90b2db5'
+      })
+    $("#generateCatBtn").on("click", function(){
+      fetch('https://api.thecatapi.com/v1/images/search', {
+        headers: myHeaders
+      })
+      .then(function(response){
+        return response.json()
+      })
+      .then(function(json){
+        console.log(json)
+        var img = document.createElement('IMG')
+        document.body.appendChild(img)
+        document.getElementsByTagName('img')[0].setAttribute('src', json[0].url)
+      })
+    })
   //
   // What else can you build with your new AJAX knowledge?
   //

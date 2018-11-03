@@ -153,7 +153,6 @@ document.addEventListener('DOMContentLoaded', init)
     dataType: ""
   })
   .then(function (response){
-    console.log(response)
     var myArray = response.message
     $(myArray).each(function(){
       $(document.getElementsByTagName('SELECT')[0]).append(`<option>${this}</option>`)
@@ -162,10 +161,10 @@ document.addEventListener('DOMContentLoaded', init)
 
   $("#selectBreedContainer").append("<select></select>")
 
-  $("#selectBreedContainer").on("click", "select", function() {
+  $("#selectBreedContainer").on("click", "option", function() {
     var breed = document.getElementsByTagName("select")[0].value
-    console.log("test")
-    $.get("https://dog.ceo/api/breed/" + breed + "/images/random").then(function(response){
+    $.get("https://dog.ceo/api/breed/" + breed + "/images/random")
+    .then(function(response){
       var img = document.createElement('IMG')
       document.body.appendChild(img)
       document.getElementsByTagName('img')[0].setAttribute('src', response.message)
